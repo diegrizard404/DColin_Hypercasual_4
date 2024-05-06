@@ -8,15 +8,52 @@ public class Bird : MonoBehaviour
 	public float springRange;
 	public float maxVel;
 
+	public bool dropBird;
+
 	Rigidbody2D rb;
-	void Start()
+
+	public float timer;
+	//private float waitTime = 4f;
+
+	bool canDrag = true;
+	Vector3 dis;
+
+	private void Awake()
+    {
+		dropBird = false;
+
+        if (pivot.gameObject == null)
+        {
+			var pivotFind = pivot.gameObject;
+			var ctbInPrefab = pivotFind.transform.Find("Pivote");
+			pivot = ctbInPrefab;
+		}
+		
+	}
+    void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		rb.bodyType = RigidbodyType2D.Kinematic;
 	}
 
-	bool canDrag = true;
-	Vector3 dis;
+    private void Update()
+    {
+		/*
+		if (dropBird == true)
+		{
+			timer += Time.deltaTime;
+
+			if (timer > waitTime)
+			{
+
+				RespawnBird.instance.Spawnbird();
+				Destroy(gameObject);
+			}
+		}
+		*/
+	}
+
+    
 	void OnMouseDrag()
 	{
 		if (!canDrag)
@@ -40,9 +77,19 @@ public class Bird : MonoBehaviour
 
 		rb.bodyType = RigidbodyType2D.Dynamic;
 		rb.velocity = -dis.normalized * maxVel * dis.magnitude / springRange;
+		dropBird = true;
+		Invoke("Reset", 4f);
 	}
 
-	//Codigo de: https://youtu.be/jqvAKRUlJWY?si=4tAgzKNqDROuXt0c
+    private void Reset()
+    {
+		transform.position = pivot.position;
+		rb.bodyType = RigidbodyType2D.Kinematic;
+		rb.velocity = Vector2.zero;
+		canDrag = true;
+	}
+
+    //Codigo de: https://youtu.be/jqvAKRUlJWY?si=4tAgzKNqDROuXt0c
 
 
 }

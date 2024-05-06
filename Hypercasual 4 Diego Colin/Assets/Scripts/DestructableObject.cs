@@ -32,4 +32,6 @@ public class DestructableObject : MonoBehaviour
 		}
 
 	}
+
+	//Codigo de: https://youtu.be/jqvAKRUlJWY?si=4tAgzKNqDROuXt0c
 }
