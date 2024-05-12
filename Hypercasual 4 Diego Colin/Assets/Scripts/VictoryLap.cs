@@ -32,8 +32,8 @@ public class VictoryLap : MonoBehaviour
         {
 
             print("Hola Mundo");
-            SceneManager.LoadScene(0);
-            
+            //SceneManager.LoadScene(0);
+            mainMenu.SetActive(true);
             
         }
     }
